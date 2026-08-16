@@ -239,6 +239,10 @@ class AdminController extends Controller
             $pesanan->status_pesanan = $status;
             $pesanan->save();
         }
+        
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Status updated']);
+        }
         return redirect('admin/pesanan');
     }
 

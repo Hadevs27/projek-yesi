@@ -54,6 +54,23 @@ $(document).ready(function() {
             $("#data-detail").html(html);
         });
     });
+
+    $('#form-edit').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                $('#modal-detail').modal('hide');
+                loadData();
+                alert('Status pesanan berhasil diperbarui!');
+            },
+            error: function() {
+                alert('Terjadi kesalahan saat menyimpan status.');
+            }
+        });
+    });
 });
 </script>
 @endpush
