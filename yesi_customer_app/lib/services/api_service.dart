@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // Gunakan IP Lokal (IPv4) komputer Anda jika menggunakan Physical Device, 
-  // atau 10.0.2.2 jika menggunakan Android Emulator.
-  static const String baseUrl = 'http://192.168.1.9:8000/api';
+  // URL Vercel Production
+  static const String baseUrl = 'https://yesi-project-3ppo.vercel.app/api';
 
   static Future<dynamic> getCategories() async {
     final response = await http.get(Uri.parse('$baseUrl/categories'));
