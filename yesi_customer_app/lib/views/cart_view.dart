@@ -65,7 +65,6 @@ class _CartViewState extends State<CartView> {
           return;
         }
         
-        // Jika Tunai / Kasir
         cart.clear();
         showDialog(
           context: context,
@@ -80,9 +79,21 @@ class _CartViewState extends State<CartView> {
             ],
           )
         );
+      } else {
+        // Jika server mengembalikan success = false
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(orderResponse['message'] ?? 'Gagal memproses pesanan.'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+          )
+        );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Terjadi kesalahan jaringan atau server: $e'),
+        backgroundColor: Colors.red,
+      ));
     } finally {
       setState(() => _isLoading = false);
     }
