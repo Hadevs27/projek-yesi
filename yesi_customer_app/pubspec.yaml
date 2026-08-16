@@ -52,6 +52,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,7 +67,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/logo.png
+    - assets/images/logo_aicha.png
     - assets/images/qris_anda.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -98,5 +99,11 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/logo.png"
+  image_path: "assets/images/logo_aicha.png"
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#F44336"
+  image: "assets/images/logo_aicha.png"
+  android: true
+  ios: true
