@@ -1,0 +1,86 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body > .container,
+body > .content-wrapper {
+  flex: 1;
+}
+
+.body {
+  background: #eaeae1;
+  color: #4a4a4a;
+  margin: 0;
+  padding: 0;
+}
+.body img {
+  filter: brightness(40%);
+}
+
+.jumbotron-custom {
+  margin: auto;
+  width: 100%;
+  background: #ffffff;
+  margin-bottom: 200px;
+  padding: 50px;
+  border-radius: 15px;
+}
+
+.container-custom {
+  background: #ffffff;
+  margin: auto;
+  width: 85%;
+  border-radius: 15px;
+}
+.about-us img {
+  filter: brightness(100%);
+}
+
+#demo {
+  width: 100%;
+}
+.garis {
+  width: 100%;
+  height: 1%;
+  background: #000000;
+  margin-top: 20px;
+}
+
+#detail_transaksi a {
+  text-decoration: none;
+  color: #000;
+}
+#detail_transaksi a:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+#footer {
+  background-color: #000;
+  width: 100%;
+  height: auto;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 20px 0;
+}
+/*
+
+#header img{
+     
+}
+
+.carousel-item {
+    height: 65vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }*/
