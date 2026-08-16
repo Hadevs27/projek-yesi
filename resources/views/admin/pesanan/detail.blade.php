@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-md-12">
         <p><b>Bukti Pembayaran (QRIS)</b></p>
-        @if(Str::startsWith($pesanan->bukti_pembayaran, 'data:image') || Str::startsWith($pesanan->bukti_pembayaran, 'http'))
+        @if(str_starts_with($pesanan->bukti_pembayaran, 'data:image') || str_starts_with($pesanan->bukti_pembayaran, 'http'))
             <img src="{{ $pesanan->bukti_pembayaran }}" alt="Bukti Pembayaran" style="max-width: 300px; border-radius: 10px; border: 1px solid #ddd;">
         @else
             <img src="{{ asset('assets/bukti_pembayaran/' . $pesanan->bukti_pembayaran) }}" alt="Bukti Pembayaran" style="max-width: 300px; border-radius: 10px; border: 1px solid #ddd;">
@@ -36,6 +36,7 @@
 <p><b>Daftar Produk</b></p>
 <table class="table table-bordered">
     <tr>
+        <th>Gambar</th>
         <th>Produk</th>
         <th>Harga</th>
         <th>Qty</th>
@@ -43,6 +44,9 @@
     </tr>
     @foreach ($pesanan->detailPesanan as $detail)
     <tr>
+        <td>
+            <img src="{{ asset('assets/produk/' . $detail->barang->foto_barang) }}" alt="{{ $detail->barang->nama_barang }}" width="50" style="border-radius: 5px;">
+        </td>
         <td>{{ $detail->barang->nama_barang }}</td>
         <td>Rp. {{ number_format($detail->barang->harga_barang, 0, ',', '.') }}</td>
         <td>{{ $detail->jumlah_pesanan }}</td>

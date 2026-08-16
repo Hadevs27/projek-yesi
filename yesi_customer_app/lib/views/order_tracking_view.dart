@@ -186,13 +186,25 @@ class _OrderTrackingViewState extends State<OrderTrackingView> {
                       const SizedBox(height: 10),
                       
                       ...(_orderData!['detail_pesanan'] as List).map((item) {
+                        final fotoUrl = item['barang']['foto_url'] ?? '';
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                          padding: const EdgeInsets.only(bottom: 12.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  fotoUrl,
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.fastfood, size: 40, color: Colors.grey),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
                               Expanded(
-                                child: Text('${item['jumlah_pesanan']}x ${item['barang']['nama_barang']}'),
+                                child: Text('${item['jumlah_pesanan']}x ${item['barang']['nama_barang']}', style: const TextStyle(fontWeight: FontWeight.w500)),
                               ),
                               Text(formatCurrency.format(double.parse(item['subtotal_harga']))),
                             ],
