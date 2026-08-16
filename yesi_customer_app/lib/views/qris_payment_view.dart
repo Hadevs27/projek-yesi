@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'home_view.dart';
 import '../services/api_service.dart';
@@ -123,10 +124,25 @@ class _QrisPaymentViewState extends State<QrisPaymentView> {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              'Nomor Pesanan Anda:\n${widget.orderNumber}',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Nomor Pesanan Anda:\n${widget.orderNumber}',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.copy),
+                  tooltip: 'Salin Nomor Pesanan',
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: widget.orderNumber));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nomor pesanan disalin!')));
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 30),
             

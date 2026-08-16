@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import 'package:intl/intl.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class OrderTrackingView extends StatefulWidget {
   const OrderTrackingView({super.key});
 
@@ -16,6 +18,26 @@ class _OrderTrackingViewState extends State<OrderTrackingView> {
   bool _isLoading = false;
   Map<String, dynamic>? _orderData;
   String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedData();
+  }
+
+  Future<void> _loadSavedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final orderNum = prefs.getString('last_order_number');
+    final phoneNum = prefs.getString('last_phone');
+    if (orderNum != null && phoneNum != null) {
+      setState(() {
+        _orderNumberController.text = orderNum;
+        _phoneController.text = phoneNum;
+      });
+      // Optionally auto track if opened
+      _trackOrder();
+    }
+  }
 
   Future<void> _trackOrder() async {
     final orderNum = _orderNumberController.text.trim();

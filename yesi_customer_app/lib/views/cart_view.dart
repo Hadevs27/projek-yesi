@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 import '../services/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'qris_payment_view.dart';
 
 class CartView extends StatefulWidget {
@@ -48,6 +49,11 @@ class _CartViewState extends State<CartView> {
       
       if (orderResponse['success'] == true) {
         String orderNumber = orderResponse['data']['order_number'];
+        
+        // Simpan ke SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('last_order_number', orderNumber);
+        await prefs.setString('last_phone', _phone);
         
         // Jika QRIS, arahkan ke halaman QRIS Statis
         if (_paymentMethod == 'QRIS') {
