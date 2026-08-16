@@ -7,7 +7,7 @@ class ApiService {
   static const String baseUrl = 'https://yesi-project-3ppo.vercel.app/api';
 
   static Future<dynamic> getCategories() async {
-    final response = await http.get(Uri.parse('$baseUrl/categories'));
+    final response = await http.get(Uri.parse('$baseUrl/kategori'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -15,7 +15,7 @@ class ApiService {
   }
 
   static Future<dynamic> getProducts() async {
-    final response = await http.get(Uri.parse('$baseUrl/products'));
+    final response = await http.get(Uri.parse('$baseUrl/barang'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -23,7 +23,7 @@ class ApiService {
   }
 
   static Future<dynamic> getBestSellers() async {
-    final response = await http.get(Uri.parse('$baseUrl/products/best-sellers'));
+    final response = await http.get(Uri.parse('$baseUrl/barang')); // Using barang as fallback
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -31,16 +31,21 @@ class ApiService {
   }
 
   static Future<dynamic> validateTable(String tableCode) async {
-    final response = await http.get(Uri.parse('$baseUrl/tables/$tableCode'));
+    final response = await http.get(Uri.parse('$baseUrl/meja')); // Get all tables and find
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      final json = jsonDecode(response.body);
+      final tables = json['data'] as List;
+      final table = tables.firstWhere((t) => t['kode_meja'] == tableCode, orElse: () => null);
+      if (table != null) {
+        return {'success': true, 'data': table};
+      }
     }
     return null;
   }
 
   static Future<dynamic> createOrder(Map<String, dynamic> data) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/orders'),
+      Uri.parse('$baseUrl/orders/create'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(data),
     );

@@ -106,7 +106,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu Makanan'),
+        title: const Text('MENU'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           Consumer<CartProvider>(
