@@ -4,6 +4,7 @@ import '../models/product.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 import 'cart_view.dart';
+import 'order_tracking_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -109,6 +110,15 @@ class _HomeViewState extends State<HomeView> {
         title: const Text('MENU'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.receipt_long),
+            tooltip: 'Lacak Pesanan',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const OrderTrackingView()),
+              );
+            },
+          ),
           Consumer<CartProvider>(
             builder: (_, cart, ch) => Badge(
               label: Text(cart.itemCount.toString()),
