@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-md-12">
         <p><b>Bukti Pembayaran (QRIS)</b></p>
-        @if(str_starts_with($pesanan->bukti_pembayaran, 'data:image') || str_starts_with($pesanan->bukti_pembayaran, 'http'))
+        @if(str_starts_with($pesanan->bukti_pembayaran, 'data:') || str_starts_with($pesanan->bukti_pembayaran, 'http'))
             <img src="{{ $pesanan->bukti_pembayaran }}" alt="Bukti Pembayaran" style="max-width: 300px; border-radius: 10px; border: 1px solid #ddd;">
         @else
             <img src="{{ asset('assets/bukti_pembayaran/' . $pesanan->bukti_pembayaran) }}" alt="Bukti Pembayaran" style="max-width: 300px; border-radius: 10px; border: 1px solid #ddd;">
