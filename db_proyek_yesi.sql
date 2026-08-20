@@ -81,7 +81,8 @@ INSERT INTO `tb_barang` (`id_barang`, `id_kategori`, `nama_barang`, `deskripsi_b
 (2, 1, 'Boba Sundae', 'Es krim dengan boba manis', '16000', 50, 'menu2.jpg'),
 (3, 1, 'Berry Bean Sundae', 'Es krim berry segar', '16000', 50, 'menu3.jpg'),
 (4, 1, 'Ice Cream Tea', 'Teh dengan es krim', '13000', 50, 'menu4.jpg'),
-(5, 1, 'Lemon Jasmine Tea', 'Teh melati rasa lemon', '12000', 50, 'menu5.jpg');
+(5, 1, 'Lemon Jasmine Tea', 'Teh melati rasa lemon', '12000', 50, 'menu5.jpg'),
+(6, 1, 'MI Shake Strawberry', 'Minuman shake segar rasa strawberry', '16000', 50, 'menu6.jpg');
 
 -- --------------------------------------------------------
 
