@@ -23,7 +23,7 @@ class ApiService {
   }
 
   static Future<dynamic> getBestSellers() async {
-    final response = await http.get(Uri.parse('$baseUrl/barang/bestseller'));
+    final response = await http.get(Uri.parse('$baseUrl/barang/rekomendasi'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }

@@ -53,52 +53,72 @@ class _HomeViewState extends State<HomeView> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                child: Image.network(
-                  product.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.image_not_supported, size: 50),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                  child: Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.image_not_supported, size: 50),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      product.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text('Rp ${NumberFormat('#,###', 'id_ID').format(product.price)}'),
+                    ElevatedButton(
+                      onPressed: () {
+                        Provider.of<CartProvider>(context, listen: false)
+                            .addItem(product);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Ditambahkan ke keranjang'),
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 30),
+                      ),
+                      child: const Text('Tambah'),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          if (product.label != null)
+            Positioned(
+              top: 5,
+              right: 5,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: product.label!.contains('Baru') ? Colors.blue : Colors.red,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Text(
+                  product.label!,
+                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    product.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text('Rp ${product.price.toStringAsFixed(0)}'),
-                  ElevatedButton(
-                    onPressed: () {
-                      Provider.of<CartProvider>(context, listen: false)
-                          .addItem(product);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Ditambahkan ke keranjang'),
-                          duration: Duration(seconds: 1),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 30),
-                    ),
-                    child: const Text('Tambah'),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+        ],
+      ),
       ),
     );
   }
@@ -145,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
                 if (bestSellers.isNotEmpty) ...[
                   const Padding(
                     padding: EdgeInsets.only(bottom: 10, top: 5),
-                    child: Text('🔥 Paling Laris', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    child: Text('⭐ Rekomendasi', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(
                     height: 220,
