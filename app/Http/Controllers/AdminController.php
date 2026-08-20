@@ -22,10 +22,18 @@ class AdminController extends Controller
         $barang = Barang::count();
         $pesanan = Pesanan::count();
 
+        $terlaris = \Illuminate\Support\Facades\DB::table('tb_detail_pesanan')
+            ->join('tb_barang', 'tb_detail_pesanan.id_barang', '=', 'tb_barang.id_barang')
+            ->select('tb_barang.nama_barang', \Illuminate\Support\Facades\DB::raw('SUM(tb_detail_pesanan.jumlah_pesanan) as total_terjual'))
+            ->groupBy('tb_barang.id_barang', 'tb_barang.nama_barang')
+            ->orderByDesc('total_terjual')
+            ->limit(5)
+            ->get();
+
         $page_title = 'Dasbor';
         $page_description = 'Beranda';
 
-        return view('admin.dashboard', compact('kategori', 'barang', 'pesanan', 'page_title', 'page_description'));
+        return view('admin.dashboard', compact('kategori', 'barang', 'pesanan', 'terlaris', 'page_title', 'page_description'));
     }
 
     public function login()
