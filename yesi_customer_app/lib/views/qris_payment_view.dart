@@ -20,7 +20,11 @@ class _QrisPaymentViewState extends State<QrisPaymentView> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 800,
+      imageQuality: 50,
+    );
     if (image != null) {
       setState(() {
         _imageProof = File(image.path);

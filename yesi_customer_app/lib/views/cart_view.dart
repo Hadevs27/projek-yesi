@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import '../providers/cart_provider.dart';
 import '../services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -132,8 +133,33 @@ class _CartViewState extends State<CartView> {
             child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('Total: Rp ${cart.totalAmount}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Subtotal:', style: TextStyle(fontSize: 16)),
+                      Text('Rp ${cart.totalAmount}', style: const TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Ongkos Kirim:', style: TextStyle(fontSize: 16)),
+                      Text(cart.tableId != null ? 'Rp 0 (Makan di tempat)' : 'Rp 10.000', style: const TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Total Bayar:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Rp ${NumberFormat('#,###', 'id_ID').format(double.parse(cart.totalAmount.replaceAll('.', '')) + (cart.tableId != null ? 0 : 10000))}', 
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red)
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 10),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Nama Lengkap'),
